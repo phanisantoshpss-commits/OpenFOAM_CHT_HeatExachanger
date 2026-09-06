@@ -243,6 +243,8 @@ OpenFOAM-CHT-Heat-Transfer/
 * **Linux** 
 
 Python may be used for automated extraction and visualisation of quantities such as temperature versus time and temperature at different points in any region.
+Can be run using the command 
+`python3 plot_temperature_vs_time.py --point cordiantes --region regionName` For example: `python3 plot_temperature_vs_time.py --point -0.25 0 0 --region pipeWall`
 
 ---
 
