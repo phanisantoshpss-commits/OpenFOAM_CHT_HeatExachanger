@@ -1,4 +1,4 @@
-# OpenFOAM_CHT_HeatExachanger
+# OpenFOAM CHT HeatExachanger
 
 # Conjugate Heat Transfer Between Hot Oil and Cold Water Using OpenFOAM
 
