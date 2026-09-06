@@ -20,6 +20,15 @@ The project is intended as a practical demonstration of multi-region thermal-flu
 
 ---
 
+# Commands To Run
+`blockMesh`
+`topoSet`
+`splitMeshRegions -cellZonesOnly -overwrite`
+`decomposePar -allRegions`
+`mpirun -np 4 foamMultiRun -parallel`
+
+---
+
 # Physical Configuration
 
 The computational domain consists of two fluid regions:
