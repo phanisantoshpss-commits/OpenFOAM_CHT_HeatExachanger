@@ -66,7 +66,7 @@ The inner cylindrical domain represents the hot-oil flow region, while the surro
 
 The principal operating conditions used in the simulation are:
 
-| Parameter          | Hot Oil — Region 1 |     Water — Region 2 |
+| Parameter          |     Oil — Region 1 |     Water — Region 2 |
 | ------------------ | -----------------: | -------------------: |
 | Fluid              |                Oil |                Water |
 | Inlet temperature  |          **400 K** |            **278 K** |
