@@ -1,0 +1,363 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  7
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     foamMultiRun;
+
+regionSolvers
+{
+    region1     fluid;
+    region2     fluid;
+    pipeWall    solid;
+}
+
+startFrom       startTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+endTime         60;
+
+deltaT          1e-3;
+
+writeControl    adjustableRunTime;
+
+writeInterval   0.5;
+
+purgeWrite      0;
+
+writeFormat     binary;
+
+writePrecision  6;
+
+writeCompression off;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable true;
+
+maxCo           1.0;
+
+maxDi           10.0;
+
+adjustTimeStep  yes;
+
+functions
+{
+    residuals_region1
+    {
+        type            residuals;
+        libs            ("libutilityFunctionObjects.so");
+
+        region          region1;
+
+        writeControl    timeStep;
+        writeInterval   1;
+
+        fields
+        (
+            U
+            p
+            T
+        );
+    }
+
+    residuals_region2
+    {
+        type            residuals;
+        libs            ("libutilityFunctionObjects.so");
+
+        region          region2;
+
+        writeControl    timeStep;
+        writeInterval   1;
+
+        fields
+        (
+            U
+            p
+            T
+        );
+    }
+
+    residuals_pipeWall
+    {
+        type            residuals;
+        libs            ("libutilityFunctionObjects.so");
+
+        region          pipeWall;
+
+        writeControl    timeStep;
+        writeInterval   1;
+
+        fields
+        (
+            T
+        );
+    }
+
+    min_T_p_region1
+    {
+        type            volFieldValue;
+        libs            ("libfieldFunctionObjects.so");
+
+        region          region1;
+
+        writeControl    timeStep;
+        writeInterval   1;
+
+        log             true;
+        writeFields     false;
+
+        select          all;
+        operation       min;
+
+        fields
+        (
+            T
+            p
+        );
+    }
+
+    max_T_p_region1
+    {
+        type            volFieldValue;
+        libs            ("libfieldFunctionObjects.so");
+
+        region          region1;
+
+        writeControl    timeStep;
+        writeInterval   1;
+
+        log             true;
+        writeFields     false;
+
+        select          all;
+        operation       max;
+
+        fields
+        (
+            T
+            p
+        );
+    }
+
+    min_magU_region1
+    {
+        type            volFieldValue;
+        libs            ("libfieldFunctionObjects.so");
+
+        region          region1;
+
+        writeControl    timeStep;
+        writeInterval   1;
+
+        log             true;
+        writeFields     false;
+
+        select          all;
+        operation       minMag;
+
+        fields
+        (
+            U
+        );
+    }
+
+    max_magU_region1
+    {
+        type            volFieldValue;
+        libs            ("libfieldFunctionObjects.so");
+
+        region          region1;
+
+        writeControl    timeStep;
+        writeInterval   1;
+
+        log             true;
+        writeFields     false;
+
+        select          all;
+        operation       maxMag;
+
+        fields
+        (
+            U
+        );
+    }
+
+    min_T_p_region2
+    {
+        type            volFieldValue;
+        libs            ("libfieldFunctionObjects.so");
+
+        region          region2;
+
+        writeControl    timeStep;
+        writeInterval   1;
+
+        log             true;
+        writeFields     false;
+
+        select          all;
+        operation       min;
+
+        fields
+        (
+            T
+            p
+        );
+    }
+
+    max_T_p_region2
+    {
+        type            volFieldValue;
+        libs            ("libfieldFunctionObjects.so");
+
+        region          region2;
+
+        writeControl    timeStep;
+        writeInterval   1;
+
+        log             true;
+        writeFields     false;
+
+        select          all;
+        operation       max;
+
+        fields
+        (
+            T
+            p
+        );
+    }
+
+    min_magU_region2
+    {
+        type            volFieldValue;
+        libs            ("libfieldFunctionObjects.so");
+
+        region          region2;
+
+        writeControl    timeStep;
+        writeInterval   1;
+
+        log             true;
+        writeFields     false;
+
+        select          all;
+        operation       minMag;
+
+        fields
+        (
+            U
+        );
+    }
+
+    max_magU_region2
+    {
+        type            volFieldValue;
+        libs            ("libfieldFunctionObjects.so");
+
+        region          region2;
+
+        writeControl    timeStep;
+        writeInterval   1;
+
+        log             true;
+        writeFields     false;
+
+        select          all;
+        operation       maxMag;
+
+        fields
+        (
+            U
+        );
+    }
+
+    min_pipeWall
+    {
+        type            volFieldValue;
+        libs            ("libfieldFunctionObjects.so");
+
+        region          pipeWall;
+
+        writeControl    timeStep;
+        writeInterval   1;
+
+        log             true;
+        writeFields     false;
+
+        select          all;
+        operation       min;
+
+        fields
+        (
+            T
+        );
+    }
+
+    max_pipeWall
+    {
+        type            volFieldValue;
+        libs            ("libfieldFunctionObjects.so");
+
+        region          pipeWall;
+
+        writeControl    timeStep;
+        writeInterval   1;
+
+        log             true;
+        writeFields     false;
+
+        select          all;
+        operation       max;
+
+        fields
+        (
+            T
+        );
+    }
+
+    timeStepMonitor
+    {
+        type            timeStep;
+        libs            ("libutilityFunctionObjects.so");
+
+        region          region1;
+
+        writeControl    timeStep;
+        writeInterval   1;
+    }
+
+    runTimeMonitor
+    {
+        type            time;
+        libs            ("libutilityFunctionObjects.so");
+
+        region          region1;
+
+        writeControl    timeStep;
+        writeInterval   1;
+
+        perTimeStep     true;
+    }
+}
+// ************************************************************************* //

@@ -1,0 +1,109 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2412                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      topoSetDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+// Cell zones for the concentric heat exchanger:
+//
+// region1  : oil       0      < r < 0.050 m
+// pipeWall : solid     0.050  < r < 0.052 m
+// region2  : water     0.052  < r < 0.100 m
+//
+// Cylinder axis is the x-axis.
+// point1 / point2 are intentionally 1 mm beyond the mesh ends so that
+// all cell centres along the 0.75 m length are safely selected.
+//
+// OpenFOAM 12 supports cylinderToCell, cylinderAnnulusToCell,
+// cellZoneSet and setToCellZone.
+
+actions
+(
+    // ================================================================
+    // 1. Oil cells
+    // ================================================================
+    {
+        name    region1Cells;
+        type    cellSet;
+        action  new;
+        source  cylinderToCell;
+
+        point1  (-0.376 0 0);
+        point2  ( 0.376 0 0);
+        radius  0.050;
+    }
+
+
+    // ================================================================
+    // 2. Solid wall cells
+    // ================================================================
+    {
+        name         pipeWallCells;
+        type         cellSet;
+        action       new;
+        source       cylinderAnnulusToCell;
+
+        point1       (-0.376 0 0);
+        point2       ( 0.376 0 0);
+        outerRadius  0.052;
+        innerRadius  0.050;
+    }
+
+
+    // ================================================================
+    // 3. Water annulus cells
+    // ================================================================
+    {
+        name         region2Cells;
+        type         cellSet;
+        action       new;
+        source       cylinderAnnulusToCell;
+
+        point1       (-0.376 0 0);
+        point2       ( 0.376 0 0);
+        outerRadius  0.100;
+        innerRadius  0.052;
+    }
+
+
+    // ================================================================
+    // Convert the three cellSets to cellZones.
+    // These zone names become the region names after splitMeshRegions.
+    // ================================================================
+
+    {
+        name    region1;
+        type    cellZoneSet;
+        action  new;
+        source  setToCellZone;
+        set     region1Cells;
+    }
+
+    {
+        name    pipeWall;
+        type    cellZoneSet;
+        action  new;
+        source  setToCellZone;
+        set     pipeWallCells;
+    }
+
+    {
+        name    region2;
+        type    cellZoneSet;
+        action  new;
+        source  setToCellZone;
+        set     region2Cells;
+    }
+);
+
+// ************************************************************************* //

@@ -187,40 +187,77 @@ A typical case structure is:
 
 ```text
 OpenFOAM-CHT-Heat-Transfer/
+├──SameDirectionFlow
+│	│
+│	├── 0/
+│   │   ├── region1/
+│   │   │ 	└── Initial and boundary conditions
+│   │	├── region2/
+│   │   │ 	└── Initial and boundary conditions
+│   │	└── pipeWall/
+│   │    	└── Initial and boundary conditions
+│	│
+│	├── constant/
+│   │	├── polyMesh/
+│   │	├── region1/
+│   │   │ 	└── Thermophysical and turbulent properties
+│   │ 	├──	region2/
+│   │   │ 	└── Thermophysical and turbulent properties
+│   │ 	└──	pipeWall/
+│   │    	└── Thermophysical properties
+│	│
+│	└── system/
+│   	├── region1/
+│       │	├── fvSchemes
+│       │	└── fvSolution
+│   	├── region2/
+│       │	├── fvSchemes
+│       │	└── fvSolution
+│   	├── pipeWall/
+│       │	├── fvSchemes
+│       │	└── fvSolution
+│   	├── blockMeshDict
+│   	├── topoSetDict
+│   	├── controlDict
+│   	├── decomposeParDict
+│   	├── fvSchemes
+│   	└── fvSolution
 │
-├── 0/
-│   └── region1/
-│       └── Initial and boundary conditions
-│   └── region2/
-│       └── Initial and boundary conditions
-│   └── pipeWall/
-│       └── Initial and boundary conditions
-│
-├── constant/
-│   ├── polyMesh/
-│   └── region1/
-│       └── Thermophysical and turbulent properties
-│   └── region2/
-│       └── Thermophysical and turbulent properties
-│   └── pipeWall/
-│       └── Thermophysical properties
-│
-├── system/
-│   └── region1/
-│       ├── fvSchemes
-│       └── fvSolution
-│   └── region2/
-│       ├── fvSchemes
-│       └── fvSolution
-│   └── pipeWall/
-│       ├── fvSchemes
-│       └── fvSolution
-│   ├── blockMeshDict
-│   ├── topoSetDict
-│   ├── controlDict
-│   ├── decomposeParDict
-│   └── fvSchemes
-│   └── fvSolution
+├──OppositeDirectionFlow
+│	│
+│	├── 0/
+│   │   ├── region1/
+│   │   │ 	└── Initial and boundary conditions
+│   │	├── region2/
+│   │   │ 	└── Initial and boundary conditions
+│   │	└── pipeWall/
+│   │    	└── Initial and boundary conditions
+│	│
+│	├── constant/
+│   │	├── polyMesh/
+│   │	├── region1/
+│   │   │ 	└── Thermophysical and turbulent properties
+│   │ 	├──	region2/
+│   │   │ 	└── Thermophysical and turbulent properties
+│   │ 	└──	pipeWall/
+│   │    	└── Thermophysical properties
+│	│
+│	└── system/
+│   	├──region1/
+│       │	├── fvSchemes
+│       │	└── fvSolution
+│   	├──region2/
+│       │	├── fvSchemes
+│       │	└── fvSolution
+│   	├──pipeWall/
+│       │	├── fvSchemes
+│       │	└── fvSolution
+│   	├── blockMeshDict
+│   	├── topoSetDict
+│   	├── controlDict
+│   	├── decomposeParDict
+│   	├── fvSchemes
+│   	└── fvSolution
 │
 ├── scripts/
 │   └── Python post-processing tools
@@ -243,8 +280,11 @@ OpenFOAM-CHT-Heat-Transfer/
 * **Linux** 
 
 Python may be used for automated extraction and visualisation of quantities such as temperature versus time and temperature at different points in any region.
+
 Can be run using the command 
-`python3 plot_temperature_vs_time.py --point cordiantes --region regionName` For example: `python3 plot_temperature_vs_time.py --point -0.25 0 0 --region pipeWall`
+`python3 plot_temperature_vs_time.py --point coordiantes --region regionName` 
+
+For example: `python3 plot_temperature_vs_time.py --point -0.25 0 0 --region pipeWall`
 
 ---
 
