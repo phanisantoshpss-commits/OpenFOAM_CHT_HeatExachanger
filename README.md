@@ -21,11 +21,11 @@ The project is intended as a practical demonstration of multi-region thermal-flu
 ---
 
 # Commands To Run
-`blockMesh`
-`topoSet`
-`splitMeshRegions -cellZonesOnly -overwrite`
-`decomposePar -allRegions`
-`mpirun -np 4 foamMultiRun -parallel`
+* `blockMesh`
+* `topoSet`
+* `splitMeshRegions -cellZonesOnly -overwrite`
+* `decomposePar -allRegions`
+* `mpirun -np 4 foamMultiRun -parallel`
 
 ---
 
