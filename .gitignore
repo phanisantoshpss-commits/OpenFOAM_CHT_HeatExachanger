@@ -1,0 +1,22 @@
+# OpenFOAM parallel decomposition
+processor*/
+
+# Post-processing output
+postProcessing/
+
+# Logs
+log.*
+*.log
+
+# ParaView generated files
+*.foam
+*.OpenFOAM
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Editor/OS files
+.vscode/
+.DS_Store
+Thumbs.db
