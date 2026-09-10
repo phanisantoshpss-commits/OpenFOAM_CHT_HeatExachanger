@@ -26,6 +26,7 @@ The project is intended as a practical demonstration of multi-region thermal-flu
 * `splitMeshRegions -cellZonesOnly -overwrite`
 * `decomposePar -allRegions`
 * `mpirun -np 4 foamMultiRun -parallel`
+* `reconstructPar -allRegions`
 
 ---
 
